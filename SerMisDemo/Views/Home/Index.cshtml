@@ -1,0 +1,47 @@
+﻿@model SerMisDemo.Models.Person
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Enter Name</h2>
+@*@using (Html.BeginForm())
+    {
+        @Html.TextBox("name", null, new { @class = "form-control", placeholder = "Enter your name" })
+        @Html.ValidationMessage("Name")
+        <br />
+        <input type="submit" value="Go" class="btn btn-primary" />
+    }*@
+
+
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "nameForm" }))
+{
+    @Html.TextBoxFor(model => model.Name)
+    @Html.ValidationMessageFor(model => model.Name)
+    <input type="submit" value="Go" />
+}
+
+@section scripts {
+    <script>
+        $(function () {
+            $('#nameForm').submit(function (e) {
+                e.preventDefault(); // Prevent the default form submission
+                var form = $(this);
+                $.ajax({
+                    url: form.attr('action'),
+                    type: form.attr('method'),
+                    data: form.serialize(),
+                    success: function (result) {
+
+                        var cityUrl = result.CityUrl;
+                        var ageUrl = result.AgeUrl;
+
+                        window.open(ageUrl);
+                        window.open(cityUrl);
+                    }
+                });
+            });
+        });
+    </script>
+}

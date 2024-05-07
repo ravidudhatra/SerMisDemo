@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "Age";
+}
+
+<h2>Enter Age</h2>
+@using (Html.BeginForm())
+{
+    @Html.TextBox("age", null, new { @class = "form-control", placeholder = "Enter your age" })
+    <br />
+    <input type="submit" value="Save" class="btn btn-primary" />
+}
